@@ -1,14 +1,12 @@
-import { loadGLTF } from './utils.js';
-
 const mindarThree = new window.MINDAR.IMAGE.MindARThree({
   container: document.body,
   imageTargetSrc: './target.mind',
 });
-const { renderer, scene, camera } = mindarThree;
 
+const { renderer, scene, camera } = mindarThree;
 const anchor = mindarThree.addAnchor(0);
 
-// Load .glb model
+// Load local model.glb
 const loader = new THREE.GLTFLoader();
 loader.load('./model.glb', (gltf) => {
   const model = gltf.scene;
@@ -20,7 +18,9 @@ loader.load('./model.glb', (gltf) => {
 const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
 scene.add(light);
 
-await mindarThree.start();
-renderer.setAnimationLoop(() => {
-  renderer.render(scene, camera);
+// Start AR
+mindarThree.start().then(() => {
+  renderer.setAnimationLoop(() => {
+    renderer.render(scene, camera);
+  });
 });

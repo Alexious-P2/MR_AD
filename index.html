@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <title>MindAR – Image‑target MR Ad</title>
+
+    <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+    <!-- GLTFLoader -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- MindAR for Three -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-three.prod.js"></script>
+
     <style>
-      body { margin: 0; overflow: hidden; }
-      canvas { display: block; }
+      body, html { margin: 0; padding: 0; overflow: hidden; }
+      #video-texture { display: none; }     /* hidden <video> element */
     </style>
   </head>
+
   <body>
-    <video id="video-texture" src="screen-video.mp4" loop muted playsinline></video>
-    <script src="script.js"></script>
+    <!-- muted+playsinline so mobile browsers autoplay once user allows camera -->
+    <video
+      id="video-texture"
+      src="screen-video.mp4"
+      loop
+      muted
+      playsinline
+      crossorigin="anonymous"
+    ></video>
+
+    <!-- all MR logic -->
+    <script type="module" src="script.js"></script>
   </body>
 </html>

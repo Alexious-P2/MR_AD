@@ -6,7 +6,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 window.addEventListener("DOMContentLoaded", async () => {
   /* --- 1. MindAR bootstrap --- */
-  const mindarThree = new MindARThree({
+  const mindarThree = new window.MINDAR.IMAGE.MindARThree({
     container: document.body,
     imageTargetSrc: "./targets.mind"
   });

@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   /* --- 2. Anchor tied to first target (index 0) --- */
   const anchor = mindarThree.addAnchor(0);
 
-  /* --- 3. GLTF‑ & Draco‑loader setup --- */
+  /* --- 3. GLTF‑ & Draco‑loader setup --- *
   const gltfLoader  = new GLTFLoader();
   const dracoLoader = new DRACOLoader();
 
@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
   gltfLoader.setDRACOLoader(dracoLoader);
 
-  /* --- 4. Load compressed GLB --- */
+  /* --- 4. Load compressed GLB --- *
   const glbScene = await new Promise((resolve, reject) =>
     gltfLoader.load(
       "./model.glb",
@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   glbScene.scale.set(0.1, 0.1, 0.1);
   anchor.group.add(glbScene);
 
-  /* --- 5. Video texture on 16:9 plane --- 
+  /* --- 5. Video texture on 16:9 plane --- */
   const video   = document.getElementById("video-texture");
   const vTex    = new THREE.VideoTexture(video);
   const vPlane  = new THREE.Mesh(
@@ -57,7 +57,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   vPlane.scale.set(1, 1, 1);                     // full‑marker size (tweak as needed)
   anchor.group.add(vPlane);
 
-  /* --- 6. Play/pause video on detection --- 
+  /* --- 6. Play/pause video on detection --- */
   anchor.onTargetFound = () => video.play();
   anchor.onTargetLost  = () => { video.pause(); video.currentTime = 0; };
 

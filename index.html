@@ -1,73 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mixed Reality Ad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
-      body {
+      html, body {
         margin: 0;
+        padding: 0;
+        height: 100%;
         overflow: hidden;
       }
-      #loading {
-        position: fixed;
-        top: 0;
-        left: 0;
+
+      a-scene {
+        position: absolute;
         width: 100vw;
         height: 100vh;
-        background: #000;
-        color: #fff;
-        font-family: sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
+        top: 0;
+        left: 0;
       }
     </style>
   </head>
   <body>
-    <div id="loading">Loading AR...</div>
-
     <a-scene
-      mindar-image="imageTargetSrc: targets.mind;"
+      embedded
+      loading-screen="enabled: false"
+      mindar-image="imageTargetSrc: targets.mind"
       color-space="sRGB"
       renderer="colorManagement: true, physicallyCorrectLights"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-      embedded
-      loading-screen="enabled: false"
-      arjs
     >
       <a-assets>
-        <!-- Replace with your own target preview (optional) -->
-        <img id="target-preview" src="preview.jpg" />
-
-        <!-- Replace with your own model -->
         <a-asset-item id="glbModel" src="model.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Optional: preview image plane -->
-        <a-plane src="#target-preview" position="0 0 0" width="1" height="0.5625"></a-plane>
-
-        <!-- Your model -->
         <a-gltf-model
           src="#glbModel"
-          position="0 0 0.1"
-          rotation="0 0 0"
+          position="0 0 0.3"
           scale="0.01 0.01 0.01"
+          rotation="0 0 0"
         ></a-gltf-model>
       </a-entity>
     </a-scene>
-
-    <script>
-      window.addEventListener("load", () => {
-        const loadingEl = document.getElementById("loading");
-        loadingEl.style.display = "none";
-      });
-    </script>
   </body>
 </html>

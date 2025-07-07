@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>MindAR – Image‑target MR Ad</title>
+<head>
+  <meta charset="UTF-8">
+  <title>Mixed Reality Ad</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+    video { display: none; }
+  </style>
 
-    <!-- Three.js -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-    <!-- GLTFLoader -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
-    <!-- MindAR for Three -->
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-three.prod.js"></script>
+  <!-- Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+      }
+    }
+  </script>
+</head>
 
-    <style>
-      body, html { margin: 0; padding: 0; overflow: hidden; }
-      #video-texture { display: none; }     /* hidden <video> element */
-    </style>
-  </head>
+<body>
+  <!-- Hidden video element used as texture -->
+  <video
+    id="video-texture"
+    src="screen-video.mp4"
+    loop
+    muted
+    playsinline
+    crossorigin="anonymous"
+  ></video>
 
-  <body>
-    <!-- muted+playsinline so mobile browsers autoplay once user allows camera -->
-    <video
-      id="video-texture"
-      src="screen-video.mp4"
-      loop
-      muted
-      playsinline
-      crossorigin="anonymous"
-    ></video>
-
-    <!-- all MR logic -->
-    <script type="module" src="script.js"></script>
-  </body>
+  <!-- Main Module Script -->
+  <script type="module" src="main.js"></script>
+</body>
 </html>

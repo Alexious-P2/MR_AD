@@ -2,10 +2,12 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>WebAR with MindAR</title>
+    <title>MindAR + Three.js</title>
 
-    <!-- Load scripts in order -->
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.7/dist/mindar-image-three.prod.js"></script>
+    <!-- ✅ Correct MindAR CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mindar-image-three@0.1.6/dist/mindar-image-three.prod.js"></script>
+
+    <!-- ✅ Three.js + GLTFLoader -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
 
@@ -16,13 +18,7 @@
   </head>
   <body>
     <script>
-      // Wait for ALL scripts to load + DOM to be ready
       window.addEventListener("load", async () => {
-        if (!window.MINDAR || !window.MINDAR.IMAGE) {
-          console.error("MindAR failed to load. Check your CDN link.");
-          return;
-        }
-
         const mindarThree = new window.MINDAR.IMAGE.MindARThree({
           container: document.body,
           imageTargetSrc: './target.mind',
@@ -39,8 +35,7 @@
           anchor.group.add(model);
         });
 
-        const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
-        scene.add(light);
+        scene.add(new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1));
 
         await mindarThree.start();
         renderer.setAnimationLoop(() => {

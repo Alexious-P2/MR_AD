@@ -1,3 +1,14 @@
+window.onerror = (msg, _url, lineNo) => {
+  const div = document.createElement('div');
+  Object.assign(div.style, {
+    position: 'fixed', top: 0, left: 0,
+    background: '#f00', color: '#fff',
+    padding: '8px', fontSize: '14px', zIndex: 9999
+  });
+  div.textContent = `Error: ${msg} at line ${lineNo}`;
+  document.body.appendChild(div);
+};
+
 /* ---------- script.js (ES‑module) ---------- */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -54,9 +65,3 @@ window.addEventListener("DOMContentLoaded", async () => {
   await mindarThree.start();
   renderer.setAnimationLoop(() => renderer.render(scene, camera));
 });
-window.onerror = function (msg, url, lineNo, columnNo, error) {
-  const div = document.createElement("div");
-  div.style = "position:fixed;top:0;left:0;background:#f00;color:#fff;padding:10px;z-index:9999;font-size:12px";
-  div.innerText = msg;
-  document.body.appendChild(div);
-};

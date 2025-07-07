@@ -2,16 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>WebAR GLB Pop-Up</title>
+    <title>WebAR</title>
+
+    <!-- MindAR CDN -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.7/dist/mindar-image-three.prod.js"></script>
+
+    <!-- THREE.js and GLTFLoader -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
+
     <style>
       body { margin: 0; overflow: hidden; }
-      canvas { position: absolute; width: 100%; height: 100%; }
+      canvas { width: 100%; height: 100%; position: absolute; }
     </style>
   </head>
   <body>
-    <script type="module" src="./main.js"></script>
+    <script type="module">
+      window.addEventListener('DOMContentLoaded', async () => {
+        await import('./main.js');
+      });
+    </script>
   </body>
 </html>

@@ -2,48 +2,51 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>WebAR</title>
+    <title>WebAR with MindAR</title>
 
-    <!-- MindAR CDN -->
+    <!-- Load scripts in order -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.7/dist/mindar-image-three.prod.js"></script>
-
-    <!-- THREE.js and GLTFLoader -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/examples/js/loaders/GLTFLoader.js"></script>
 
     <style>
       body { margin: 0; overflow: hidden; }
-      canvas { width: 100%; height: 100%; position: absolute; }
+      canvas { position: absolute; width: 100%; height: 100%; }
     </style>
   </head>
   <body>
     <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const mindarThree = new window.MINDAR.IMAGE.MindARThree({
-      container: document.body,
-      imageTargetSrc: './target.mind',
-    });
+      // Wait for ALL scripts to load + DOM to be ready
+      window.addEventListener("load", async () => {
+        if (!window.MINDAR || !window.MINDAR.IMAGE) {
+          console.error("MindAR failed to load. Check your CDN link.");
+          return;
+        }
 
-    const { renderer, scene, camera } = mindarThree;
-    const anchor = mindarThree.addAnchor(0);
+        const mindarThree = new window.MINDAR.IMAGE.MindARThree({
+          container: document.body,
+          imageTargetSrc: './target.mind',
+        });
 
-    const loader = new THREE.GLTFLoader();
-    loader.load('./model.glb', (gltf) => {
-      const model = gltf.scene;
-      model.scale.set(0.5, 0.5, 0.5);
-      model.position.set(0, 0, 0);
-      anchor.group.add(model);
-    });
+        const { renderer, scene, camera } = mindarThree;
+        const anchor = mindarThree.addAnchor(0);
 
-    const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
-    scene.add(light);
+        const loader = new THREE.GLTFLoader();
+        loader.load('./model.glb', (gltf) => {
+          const model = gltf.scene;
+          model.scale.set(0.5, 0.5, 0.5);
+          model.position.set(0, 0, 0);
+          anchor.group.add(model);
+        });
 
-    mindarThree.start().then(() => {
-      renderer.setAnimationLoop(() => {
-        renderer.render(scene, camera);
+        const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+        scene.add(light);
+
+        await mindarThree.start();
+        renderer.setAnimationLoop(() => {
+          renderer.render(scene, camera);
+        });
       });
-    });
-  });
-</script>
+    </script>
   </body>
 </html>

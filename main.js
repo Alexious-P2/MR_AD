@@ -10,7 +10,7 @@ const anchor = mindarThree.addAnchor(0);
 
 // Load .glb model
 const loader = new THREE.GLTFLoader();
-loader.load('https://cdn.jsdelivr.net/gh/Alexious-P2/MR_AD/model.glb', (gltf) => {
+loader.load('./model.glb', (gltf) => {
   const model = gltf.scene;
   model.scale.set(0.5, 0.5, 0.5);
   model.position.set(0, 0, 0);

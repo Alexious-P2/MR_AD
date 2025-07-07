@@ -54,3 +54,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   await mindarThree.start();
   renderer.setAnimationLoop(() => renderer.render(scene, camera));
 });
+window.onerror = function (msg, url, lineNo, columnNo, error) {
+  const div = document.createElement("div");
+  div.style = "position:fixed;top:0;left:0;background:#f00;color:#fff;padding:10px;z-index:9999;font-size:12px";
+  div.innerText = msg;
+  document.body.appendChild(div);
+};

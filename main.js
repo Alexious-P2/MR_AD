@@ -65,15 +65,3 @@ window.addEventListener("DOMContentLoaded", async () => {
   await mindarThree.start();
   renderer.setAnimationLoop(() => renderer.render(scene, camera));
 });
-
-console.log("AR starting...");
-anchor.onTargetFound = () => {
-  console.log("Target found!");
-  video.play();
-};
-
-anchor.onTargetLost = () => {
-  console.log("Target lost.");
-  video.pause();
-  video.currentTime = 0;
-};

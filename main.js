@@ -65,3 +65,22 @@ window.addEventListener("DOMContentLoaded", async () => {
   await mindarThree.start();
   renderer.setAnimationLoop(() => renderer.render(scene, camera));
 });
+
+const testBox = new THREE.Mesh(
+  new THREE.BoxGeometry(0.1, 0.1, 0.1),
+  new THREE.MeshNormalMaterial()
+);
+testBox.position.set(0, 0, -1); // 1 unit in front of camera
+scene.add(testBox);
+
+console.log("AR starting...");
+anchor.onTargetFound = () => {
+  console.log("Target found!");
+  video.play();
+};
+
+anchor.onTargetLost = () => {
+  console.log("Target lost.");
+  video.pause();
+  video.currentTime = 0;
+};

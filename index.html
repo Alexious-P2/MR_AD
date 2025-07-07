@@ -18,30 +18,39 @@
   </head>
   <body>
     <script>
-      window.addEventListener("load", async () => {
-        const mindarThree = new window.MINDAR.IMAGE.MindARThree({
-          container: document.body,
-          imageTargetSrc: './target.mind',
-        });
+  function waitForMindAR(callback) {
+    if (window.MINDAR && window.MINDAR.IMAGE) {
+      callback();
+    } else {
+      setTimeout(() => waitForMindAR(callback), 50);
+    }
+  }
 
-        const { renderer, scene, camera } = mindarThree;
-        const anchor = mindarThree.addAnchor(0);
+  waitForMindAR(async () => {
+    const mindarThree = new window.MINDAR.IMAGE.MindARThree({
+      container: document.body,
+      imageTargetSrc: './target.mind',
+    });
 
-        const loader = new THREE.GLTFLoader();
-        loader.load('./model.glb', (gltf) => {
-          const model = gltf.scene;
-          model.scale.set(0.5, 0.5, 0.5);
-          model.position.set(0, 0, 0);
-          anchor.group.add(model);
-        });
+    const { renderer, scene, camera } = mindarThree;
+    const anchor = mindarThree.addAnchor(0);
 
-        scene.add(new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1));
+    const loader = new THREE.GLTFLoader();
+    loader.load('./model.glb', (gltf) => {
+      const model = gltf.scene;
+      model.scale.set(0.5, 0.5, 0.5);
+      model.position.set(0, 0, 0);
+      anchor.group.add(model);
+    });
 
-        await mindarThree.start();
-        renderer.setAnimationLoop(() => {
-          renderer.render(scene, camera);
-        });
-      });
-    </script>
+    const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+    scene.add(light);
+
+    await mindarThree.start();
+    renderer.setAnimationLoop(() => {
+      renderer.render(scene, camera);
+    });
+  });
+</script>
   </body>
 </html>

@@ -18,10 +18,12 @@
       }
     }
   </script>
+
+  <!-- Load MindAR as UMD global -->
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-three.prod.js"></script>
 </head>
 
 <body>
-  <!-- Hidden video element used as texture -->
   <video
     id="video-texture"
     src="screen-video.mp4"
@@ -31,7 +33,6 @@
     crossorigin="anonymous"
   ></video>
 
-  <!-- Main Module Script -->
   <script type="module" src="main.js"></script>
 </body>
 </html>
